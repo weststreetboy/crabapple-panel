@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" href="{{__faviconSrc__}}">
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta name="referrer" content="never">
+	<link rel="apple-touch-icon" href="{{__faviconSrc__}}">
+	<link rel="stylesheet"  href="/custom/index.css">
+	<link rel="stylesheet"  href="/custom/features.css">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+	<!-- <title>Crabapple-Panel</title> -->
+	<title>{{__title__}}</title>
+  <script type="module" crossorigin src="/assets/index-DgdWeFdS.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CTjp1Lcx.css">
+</head>
+
+<body class="dark:bg-black">
+	<div id="app">
+		<style>
+			.loading-wrap {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+			}
+
+			.balls {
+				width: 4em;
+				display: flex;
+				flex-flow: row nowrap;
+				align-items: center;
+				justify-content: space-between;
+			}
+
+			.balls div {
+				width: 0.8em;
+				height: 0.8em;
+				border-radius: 50%;
+				background-color: #4b9e5f;
+			}
+
+			.balls div:nth-of-type(1) {
+				transform: translateX(-100%);
+				animation: left-swing 0.5s ease-in alternate infinite;
+			}
+
+			.balls div:nth-of-type(3) {
+				transform: translateX(-95%);
+				animation: right-swing 0.5s ease-out alternate infinite;
+			}
+
+			@keyframes left-swing {
+
+				50%,
+				100% {
+					transform: translateX(95%);
+				}
+			}
+
+			@keyframes right-swing {
+				50% {
+					transform: translateX(-95%);
+				}
+
+				100% {
+					transform: translateX(100%);
+				}
+			}
+
+			@media (prefers-color-scheme: dark) {
+				body {
+					background: #121212;
+				}
+			}
+		</style>
+		<div class="loading-wrap">
+			<div class="balls">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<script src="/custom/index.js"></script>
+	<!-- 迁移/恢复上传拦截：multipart -> 分片裸流直传，绕过云网关对大文件表单的拦截 -->
+	<script src="/custom/upload-shim.js"></script>
+	<!-- 视频壁纸增强：合成层提速 / 首帧兜底 / autoplay 兼容 / 省电 -->
+	<script src="/custom/bg-video.js"></script>
+	<!-- 授权增强：保留原始授权页，补一个「使用授权码激活」入口 -->
+	<script src="/custom/auth-center.js"></script>
+	<!-- 自定义功能：白昼/夜间遮罩 + 雨效 + 悬停效果 + 万能窗口 + 时钟截图框 -->
+	<script src="/custom/features.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+{
+  "appJsonVersion": "1.1",
+  "author": "zhousansui",
+  "version": "3.0.261031",
+  "entry": "main.js",
+  "icon": "icon.png",
+  "debug": false,
+  "appInfo": {
+    "appName": "$t:APP_NAME",
+    "description": "$t:APP_DESCRIPTION",
+    "networkDescription": "$t:NETWORK_DESCRIPTION"
+  },
+  "locales": {
+    "zh-CN": "zh-CN.json",
+    "en-US": "en-US.json"
+  },
+  "defaultLocale": "zh-CN",
+  "permissions": [
+    "network",
+    "dataNode"
+  ],
+  "networkDomains": [
+    "cdn.jsdelivr.net"
+  ],
+  "dataNodes": {
+    "holidayCache": {
+      "scope": "app",
+      "isPublic": true
+    },
+    "userData": {
+      "scope": "user",
+      "isPublic": false
+    }
+  },
+  "microAppId": "zhousansui-holiday-count-down",
+  "apiVersion": "1.0.19",
+  "components": {
+    "pages": {
+      "calendar-config": {
+        "background": "#F2F2F7",
+        "backgroundDark": "#000000",
+        "headerTextColor": "#1D1D1F",
+        "headerTextColorDark": "#F5F5F7",
+        "width": 560,
+        "height": 760,
+        "resize": true,
+        "move": true
+      },
+      "calendar-main": {
+        "type": "main",
+        "background": "#F2F2F7",
+        "backgroundDark": "#000000",
+        "headerTextColor": "#1D1D1F",
+        "headerTextColorDark": "#F5F5F7",
+        "showFullscreenBtn": true,
+        "width": 880,
+        "height": 1120,
+        "resize": true,
+        "move": true
+      }
+    },
+    "widgets": {
+      "calendar-widget": {
+        "configComponentName": "calendar-config",
+        "size": [
+          "1x1",
+          "1x2",
+          "2x1",
+          "2x2",
+          "2x4",
+          "4x4",
+          "1xfull"
+        ],
+        "background": "",
+        "widgetName": "$t:WIDGET_CALENDAR_NAME",
+        "widgetDescription": "$t:WIDGET_CALENDAR_DESCRIPTION",
+        "sort": 10
+      }
+    }
+  }
+}

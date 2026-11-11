@@ -1,0 +1,7 @@
+{
+  "APP_NAME": "天气",
+  "APP_DESCRIPTION": "实时天气查询与预报",
+  "NETWORK_DESCRIPTION": "从 uapis.cn 获取实时天气数据",
+  "WIDGET_NAME": "天气",
+  "WIDGET_DESCRIPTION": "实时天气卡片，支持多城市管理"
+}

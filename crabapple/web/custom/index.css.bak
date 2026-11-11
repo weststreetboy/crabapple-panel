@@ -1,0 +1,115 @@
+/* =========================================================
+   自定义样式  web/custom/index.css
+   由 server.py 直接提供（/custom/index.css 已验证 200）
+   想改外观就改这里，保存后浏览器强刷即可（Ctrl+F5）
+   ========================================================= */
+
+/* ---- 基础排版打磨 ---- */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- 细滚动条 ---- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, .45) transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, .45);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, .72); }
+
+::selection { background: rgba(79, 140, 255, .35); }
+
+/* =========================================================
+   Ctrl+K 快捷指令栏
+   ========================================================= */
+.sp-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 14vh;
+  background: rgba(8, 10, 14, .45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: sp-fade .12s ease-out;
+}
+
+.sp-panel {
+  width: min(640px, 92vw);
+  max-height: 62vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(24, 27, 34, .94);
+  border: 1px solid rgba(255, 255, 255, .10);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .5), 0 0 0 1px rgba(0, 0, 0, .2);
+  color: #e8ecf3;
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  animation: sp-pop .14s cubic-bezier(.2, .8, .3, 1);
+}
+
+.sp-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px 18px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #e8ecf3;
+  font-size: 16px;
+}
+.sp-input::placeholder { color: rgba(232, 236, 243, .38); }
+
+.sp-list {
+  overflow-y: auto;
+  padding: 6px;
+  border-top: 1px solid rgba(255, 255, 255, .07);
+}
+
+.sp-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.sp-row .sp-ico { width: 22px; text-align: center; font-size: 17px; flex: 0 0 auto; }
+.sp-row .sp-t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sp-row .sp-h { font-size: 12px; color: rgba(232, 236, 243, .42); }
+.sp-row.sp-on { background: rgba(79, 140, 255, .20); }
+
+.sp-empty { padding: 18px; text-align: center; color: rgba(232, 236, 243, .42); }
+
+.sp-foot {
+  display: flex;
+  gap: 16px;
+  padding: 8px 14px;
+  font-size: 12px;
+  color: rgba(232, 236, 243, .40);
+  border-top: 1px solid rgba(255, 255, 255, .07);
+}
+.sp-foot kbd {
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  background: rgba(255, 255, 255, .06);
+  font: inherit;
+}
+
+@keyframes sp-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sp-pop {
+  from { opacity: 0; transform: translateY(-8px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}

@@ -1,0 +1,38 @@
+# ===== 二进制发布包（官方 sun-panel 二进制，非源码） =====
+sun-panel
+sun-panel.orig
+*.exe
+*.msi
+
+# ===== 运行时数据 / 凭据 / 配置 / 上传 =====
+database/
+runtime/
+conf/
+uploads/
+*.db
+*.db-wal
+*.db-shm
+
+# ===== 发布暂存（可由 crabapple/ 经 sync_to_dist 生成） =====
+dist-linux/
+sun-panel_v2.0.2-beta261101_windows_amd64/
+sun-panel_v2.0.2-beta261110_windows_amd64/
+_backup/
+
+# ===== 本地生成物 / 日志 / 杂项 =====
+_logo_preview_*.png
+_nasicon.html
+*.log
+._*
+.workbuddy/
+
+# ===== 测试截图（保留 _e2e 脚本，忽略截图） =====
+_e2e/*.png
+_e2e/**/*.png
+
+# ===== 依赖 =====
+node_modules/
+
+# ===== 本地暂存/验证产物 =====
+_iconlib_stash_win/
+_verify_shots/

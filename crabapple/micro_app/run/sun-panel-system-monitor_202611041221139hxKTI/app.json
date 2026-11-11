@@ -1,0 +1,89 @@
+{
+  "appJsonVersion": "1.1",
+  "author": "sun-panel",
+  "version": "1.0.1",
+  "entry": "main.js",
+  "icon": "icon.png",
+  "debug": false,
+  "appInfo": {
+    "appName": "$t:APP_NAME",
+    "description": "$t:APP_DESCRIPTION",
+    "networkDescription": "$t:NETWORK_DESCRIPTION"
+  },
+  "locales": {
+    "zh-CN": "zh-CN.json",
+    "en-US": "en-US.json"
+  },
+  "defaultLocale": "en-US",
+  "permissions": [
+    "systemMonitor"
+  ],
+  "networkDomains": [],
+  "dataNodes": {},
+  "microAppId": "sun-panel-system-monitor",
+  "apiVersion": "1.0.18",
+  "components": {
+    "pages": {
+      "system-monitor-config": {
+        "background": "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+        "backgroundDark": "linear-gradient(135deg, #1e1e2f 0%, #2d2d44 100%)",
+        "headerTextColor": "#000000",
+        "headerTextColorDark": "#ffffff"
+      },
+      "integrated-monitor-config": {
+        "background": "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+        "backgroundDark": "linear-gradient(135deg, #1e1e2f 0%, #2d2d44 100%)",
+        "headerTextColor": "#000000",
+        "headerTextColorDark": "#ffffff"
+      }
+    },
+    "widgets": {
+      "system-monitor-cpu-widget": {
+        "configComponentName": "system-monitor-config",
+        "size": [
+          "1x1",
+          "1x2",
+          "2x2"
+        ],
+        "background": "",
+        "widgetName": "$t:WIDGET_CPU_NAME",
+        "widgetDescription": "$t:WIDGET_CPU_DESCRIPTION",
+        "sort": 10
+      },
+      "system-monitor-memory-widget": {
+        "configComponentName": "system-monitor-config",
+        "size": [
+          "1x1",
+          "1x2",
+          "2x2"
+        ],
+        "background": "",
+        "widgetName": "$t:WIDGET_MEMORY_NAME",
+        "widgetDescription": "$t:WIDGET_MEMORY_DESCRIPTION",
+        "sort": 20
+      },
+      "system-monitor-disk-widget": {
+        "configComponentName": "system-monitor-config",
+        "size": [
+          "1x1",
+          "1x2",
+          "2x2"
+        ],
+        "background": "",
+        "widgetName": "$t:WIDGET_DISK_NAME",
+        "widgetDescription": "$t:WIDGET_DISK_DESCRIPTION",
+        "sort": 30
+      },
+      "system-monitor-integrated-widget": {
+        "configComponentName": "integrated-monitor-config",
+        "size": [
+          "2x4"
+        ],
+        "background": "",
+        "widgetName": "$t:WIDGET_INTEGRATED_NAME",
+        "widgetDescription": "$t:WIDGET_INTEGRATED_DESCRIPTION",
+        "sort": 40
+      }
+    }
+  }
+}

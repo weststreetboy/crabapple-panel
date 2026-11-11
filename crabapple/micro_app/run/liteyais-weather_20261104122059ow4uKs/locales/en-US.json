@@ -1,0 +1,7 @@
+{
+  "APP_NAME": "Weather",
+  "APP_DESCRIPTION": "Real-time weather and forecast",
+  "NETWORK_DESCRIPTION": "Fetch weather data from uapis.cn",
+  "WIDGET_NAME": "Weather",
+  "WIDGET_DESCRIPTION": "Real-time weather card with multi-city support"
+}

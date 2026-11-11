@@ -1,0 +1,54 @@
+{
+  "appJsonVersion": "1.0",
+  "author": "liteyais",
+  "version": "1.0.41",
+  "entry": "main.js",
+  "icon": "logo.png",
+  "debug": false,
+  "appInfo": {
+    "zh-CN": {
+      "appName": "每日电影",
+      "description": "每日推荐一部高分电影，附豆瓣评分与简介",
+      "networkDescription": "从 jsDelivr 获取电影海报"
+    },
+    "en-US": {
+      "appName": "Daily Movie",
+      "description": "A highly-rated movie recommendation every day",
+      "networkDescription": "Fetch movie posters from jsDelivr"
+    }
+  },
+  "permissions": [
+    "network",
+    "dataNode"
+  ],
+  "networkDomains": [
+    "fastly.jsdelivr.net",
+    "cdn.jsdelivr.net"
+  ],
+  "dataNodes": {
+    "progress": {
+      "scope": "user",
+      "isPublic": false
+    }
+  },
+  "microAppId": "liteyais-daily-movie",
+  "apiVersion": "1.0.19",
+  "components": {
+    "pages": {
+      "daily-movie-detail": {
+        "type": "config",
+        "background": "#0b0a0f",
+        "headerTextColor": "#f4f1ea"
+      }
+    },
+    "widgets": {
+      "daily-movie-widget": {
+        "size": [
+          "2x2",
+          "2x4"
+        ],
+        "background": ""
+      }
+    }
+  }
+}

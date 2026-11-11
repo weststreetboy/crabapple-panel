@@ -1,0 +1,15 @@
+VIEWFINDER_REMOVED=true
+INFO {
+  "found": true,
+  "hasClass": true,
+  "text": "12:11",
+  "dataSpclock": "12:11",
+  "color": "rgba(0, 0, 0, 0)",
+  "webkitTextStrokeWidth": "2px",
+  "webkitTextStrokeColor": "rgb(255, 143, 192)",
+  "textShadow": "rgba(255, 93, 162, 0.9) 0px 0px 5px, rgba(255, 45, 120, 0.8) 0px 0px 12px, rgba(255, 45, 120, 0.55) 0px 0px 24px, rgba(255, 45, 120, 0.4) 0px 0px 44px",
+  "fontFamily": "v-sans, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe",
+  "viewfinderRemoved": true
+}
+CLIP {"x":875.25,"y":70.796875,"width":105.578125,"height":78.390625}
+ERRORS 11 :: Failed to load resource: the server responded with a status of 404 () | Failed to load resource: net::ERR_FAILED | Failed to load resource: net::ERR_FAILED | Failed to load resource: the server responded with a status of 404 (Not Found) | Failed to load resource: net::ERR_NAME_NOT_RESOLVED | Failed to load resource: the server responded with a status of 404 (Not Found) | Failed to load resource: the server responded with a status of 404 (Not Found) | Failed to load resource: the server responded with a status of 404 ()

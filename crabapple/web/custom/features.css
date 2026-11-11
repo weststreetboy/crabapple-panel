@@ -1,0 +1,332 @@
+/* =========================================================
+   自定义功能样式  web/custom/features.css
+   由 server.py 提供（/custom/features.css）
+   模块：
+   1) 白昼 / 夜间 背景遮罩
+   2) 雨天 Canvas 雨效
+   3) 卡片悬停效果（缩放 / 上浮 / 发光 / 无）
+   4) 设置卡片（雨效 / 鼠标悬停 → 注入「个性化设置」对话框）
+   5) 数据恢复（服务器已有备份 → 注入「迁移」弹窗）
+   6) 时钟霓虹双线效果（透明填充 + 描边双线管壁 + 粉色辉光）
+   颜色随面板亮 / 暗主题自适应：默认（亮色）写在基础规则，
+   html.dark 下覆盖为暗色值。主题由 html 上的 .dark 类控制。
+   ========================================================= */
+
+/* ===== 1) 白昼 / 夜间 背景遮罩 ===== */
+.sp-dn-mask {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  transition: background .9s ease, opacity .9s ease;
+}
+/* 白天 6:00-18:00：极淡的暖白提亮，几乎不干扰阅读 */
+.sp-dn-mask.sp-dn-day {
+  background:
+    radial-gradient(130% 120% at 50% -10%, rgba(255, 255, 255, .12), rgba(255, 244, 224, .05) 38%, rgba(0, 0, 0, 0) 72%);
+  opacity: 1;
+}
+/* 夜间 18:00-6:00：深蓝压暗，强化夜感 */
+.sp-dn-mask.sp-dn-night {
+  background:
+    radial-gradient(130% 120% at 50% -10%, rgba(14, 24, 60, .34), rgba(6, 10, 26, .46) 55%, rgba(0, 0, 0, .56) 100%);
+  opacity: 1;
+}
+html.dark .sp-dn-mask.sp-dn-day { opacity: .55; }
+
+/* ===== 2) 雨天 Canvas 雨效 ===== */
+.sp-rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  display: none;
+  opacity: .55;
+}
+.sp-rain.sp-on { display: block; }
+
+/* ===== 3) 卡片悬停效果 =====
+   发光框跟随 .item-card-box 的圆角；卡片内容 .item-card-content 为 20px 圆角，
+   故这里也给盒子 20px，使发光/投影与卡片圆角一致（不再出现矩形发光框）。 */
+body.sp-hov-scale .item-card-box,
+body.sp-hov-float .item-card-box,
+body.sp-hov-glow  .item-card-box {
+  position: relative;
+  border-radius: 20px;
+  transition: transform .22s ease, box-shadow .22s ease;
+  will-change: transform;
+}
+body.sp-hov-scale .item-card-box:hover {
+  transform: scale(1.06);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .38);
+  z-index: 5;
+}
+body.sp-hov-float .item-card-box:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, .42);
+  z-index: 5;
+}
+body.sp-hov-glow .item-card-box:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 0 2px rgba(120, 165, 255, .85),
+    0 0 24px 5px rgba(120, 165, 255, .55);
+  z-index: 5;
+}
+/* 「无」模式：不加任何 hover 变化 */
+
+/* ===== 4) / 5) 设置卡片 & 数据恢复 通用样式 =====
+   注入卡片复用 Naive UI 的 .n-card 外观；分段按钮 / 说明文字 / 列表等样式全局生效，
+   既可用于「个性化设置」对话框里的雨效 / 悬停卡片，也可用于「迁移」弹窗里的数据恢复卡片。
+   颜色分亮色（基础）与暗色（html.dark）两套，随主题自适应。 */
+
+/* 分段按钮（雨效 / 悬停 共用） —— 亮色 */
+.sp-seg {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sp-seg button {
+  flex: 1 1 auto;
+  min-width: 52px;
+  padding: 7px 8px;
+  border-radius: 9px;
+  border: 1px solid rgba(0, 0, 0, .14);
+  background: rgba(0, 0, 0, .04);
+  color: #333;
+  font: inherit;
+  cursor: pointer;
+  transition: background .12s ease, border-color .12s ease, color .12s ease;
+}
+.sp-seg button:hover { background: rgba(0, 0, 0, .08); }
+.sp-seg button.sp-on {
+  background: #4f8cff;
+  border-color: #4f8cff;
+  color: #fff;
+}
+/* 暗色覆盖 */
+html.dark .sp-seg button {
+  border-color: rgba(255, 255, 255, .14);
+  background: rgba(255, 255, 255, .05);
+  color: #d6dbe4;
+}
+html.dark .sp-seg button:hover { background: rgba(255, 255, 255, .10); }
+html.dark .sp-seg button.sp-on {
+  background: #4f8cff;
+  border-color: #4f8cff;
+  color: #fff;
+}
+
+/* 说明文字 / 宽按钮（全局，注入卡片内可用） —— 亮色 */
+.sp-note {
+  font-size: 11px;
+  color: rgba(0, 0, 0, .5);
+  margin-top: 6px;
+  line-height: 1.45;
+}
+.sp-wide {
+  width: 100%;
+  padding: 9px;
+  border-radius: 9px;
+  border: 1px solid rgba(0, 0, 0, .14);
+  background: rgba(79, 140, 255, .12);
+  color: #2563eb;
+  font: inherit;
+  cursor: pointer;
+}
+.sp-wide:hover { background: rgba(79, 140, 255, .2); }
+/* 暗色覆盖 */
+html.dark .sp-note { color: rgba(232, 236, 243, .42); }
+html.dark .sp-wide {
+  border-color: rgba(255, 255, 255, .14);
+  background: rgba(79, 140, 255, .16);
+  color: #cfe0ff;
+}
+html.dark .sp-wide:hover { background: rgba(79, 140, 255, .26); }
+
+/* 数据恢复：服务器已有备份列表 —— 亮色 */
+.sp-sub {
+  font-weight: 400;
+  font-size: 10px;
+  color: rgba(0, 0, 0, .45);
+}
+.sp-restore-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.sp-restore-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, .03);
+  border: 1px solid rgba(0, 0, 0, .08);
+}
+.sp-ri-info { flex: 1 1 auto; min-width: 0; }
+.sp-ri-name {
+  font-size: 11.5px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sp-ri-meta {
+  font-size: 10px;
+  color: rgba(0, 0, 0, .5);
+  margin-top: 1px;
+}
+.sp-ri-btn {
+  flex: 0 0 auto;
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, .12);
+  background: rgba(79, 140, 255, .14);
+  color: #2563eb;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .12s ease, color .12s ease, border-color .12s ease;
+}
+.sp-ri-btn:hover { background: rgba(79, 140, 255, .22); }
+.sp-ri-btn.sp-danger {
+  background: #e5484d;
+  border-color: #e5484d;
+  color: #fff;
+}
+/* 下载 / 删除：次要动作用描边，避免和蓝色的「恢复」抢视线 */
+.sp-ri-acts {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+.sp-ri-btn.sp-ghost {
+  background: transparent;
+  border-color: rgba(0, 0, 0, .16);
+  color: #4b5563;
+  text-decoration: none;
+  display: inline-block;
+}
+.sp-ri-btn.sp-ghost:hover { background: rgba(0, 0, 0, .06); }
+.sp-ri-btn.sp-del {
+  background: transparent;
+  border-color: rgba(201, 42, 42, .34);
+  color: #c92a2a;
+}
+.sp-ri-btn.sp-del:hover { background: rgba(229, 72, 77, .1); }
+.sp-ri-btn.sp-del.sp-danger {
+  background: #e5484d;
+  border-color: #e5484d;
+  color: #fff;
+}
+.sp-ri-btn:disabled { opacity: .6; cursor: default; }
+.sp-empty {
+  font-size: 11px;
+  color: rgba(0, 0, 0, .5);
+  padding: 8px 2px;
+}
+/* 暗色覆盖 */
+html.dark .sp-sub { color: rgba(232, 236, 243, .4); }
+html.dark .sp-restore-item {
+  background: rgba(255, 255, 255, .05);
+  border-color: rgba(255, 255, 255, .08);
+}
+html.dark .sp-ri-name { color: #e8ecf3; }
+html.dark .sp-ri-meta { color: rgba(232, 236, 243, .45); }
+html.dark .sp-ri-btn {
+  border-color: rgba(255, 255, 255, .16);
+  background: rgba(79, 140, 255, .18);
+  color: #cfe0ff;
+}
+html.dark .sp-ri-btn:hover { background: rgba(79, 140, 255, .3); }
+html.dark .sp-ri-btn.sp-danger {
+  background: #e5484d;
+  border-color: #e5484d;
+  color: #fff;
+}
+/* 暗色下必须重新声明：html.dark .sp-ri-btn 的特异性高于 .sp-ri-btn.sp-ghost */
+html.dark .sp-ri-btn.sp-ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, .18);
+  color: rgba(232, 236, 243, .8);
+}
+html.dark .sp-ri-btn.sp-ghost:hover { background: rgba(255, 255, 255, .1); }
+html.dark .sp-ri-btn.sp-del {
+  background: transparent;
+  border-color: rgba(229, 72, 77, .5);
+  color: #ff8f8f;
+}
+html.dark .sp-ri-btn.sp-del:hover { background: rgba(229, 72, 77, .18); }
+html.dark .sp-ri-btn.sp-del.sp-danger {
+  background: #e5484d;
+  border-color: #e5484d;
+  color: #fff;
+}
+html.dark .sp-empty { color: rgba(232, 236, 243, .4); }
+
+/* ===== 6) 时钟霓虹双线效果 =====
+   透明填充 + 描边形成"双线管壁"（描边是一条带，内/外两条边即双线），
+   叠加粉色辉光模拟霓虹灯。仅作用于时钟数字，不影响日期/星期。 */
+
+@keyframes sp-pop {
+  from { opacity: 0; transform: translateY(-8px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.clock-time.sp-clock-neon {
+  position: relative;
+  color: transparent !important;
+  -webkit-text-stroke: 2px #ff8fc0;
+  text-shadow:
+    0 0 5px  rgba(255, 93, 162, .90),
+    0 0 12px rgba(255, 45, 120, .80),
+    0 0 24px rgba(255, 45, 120, .55),
+    0 0 44px rgba(255, 45, 120, .40);
+  font-weight: 600 !important;
+  letter-spacing: .02em;
+}
+/* 内描一层更细的高亮线，让"双线"更清晰（与主体描边同心，居中即内缘高亮） */
+.clock-time.sp-clock-neon::before {
+  content: attr(data-spclock);
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-text-stroke: 1px rgba(255, 226, 240, .95);
+  text-shadow: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 小屏：注入卡片内分段按钮适当缩小，避免挡住内容 */
+@media (max-width: 560px) {
+  .sp-seg button { min-width: 44px; padding: 6px 6px; font-size: 12px; }
+}
+
+/* 登录页标题上方的海棠标（custom/features.js 模块 7 注入） */
+.crab-loginlogo {
+  display: block;
+  margin: 0 auto 10px;
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .22));
+  pointer-events: none;
+}
+
+/* ===== 8) 首页大标题字号锁定为 sun-panel 原始大小 =====
+   大标题(logo 文字)采用 text-2xl md:text-6xl，原始即
+   手机 24px / 桌面(≥768px) 60px。这里显式锁定，避免主题或
+   后续改动导致漂移；要改字号只动这里。 */
+.logo .text-2xl.md\:text-6xl {
+  font-size: 24px !important;
+}
+@media (min-width: 768px) {
+  .logo .text-2xl.md\:text-6xl {
+    font-size: 60px !important;
+  }
+}

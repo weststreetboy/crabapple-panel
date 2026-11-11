@@ -1,0 +1,73 @@
+{
+  "appJsonVersion": "1.0",
+  "author": "liteyais",
+  "version": "1.7.16",
+  "entry": "main.js",
+  "icon": "logo.png",
+  "debug": false,
+  "appInfo": {
+    "zh-CN": {
+      "appName": "天气",
+      "description": "实时天气查询与预报",
+      "networkDescription": "从 uapis.cn 获取实时天气数据"
+    },
+    "en-US": {
+      "appName": "Weather",
+      "description": "Real-time weather and forecast",
+      "networkDescription": "Fetch weather data from uapis.cn"
+    }
+  },
+  "permissions": [
+    "network",
+    "dataNode"
+  ],
+  "networkDomains": [
+    "uapis.cn",
+    "api.uapis.cn"
+  ],
+  "dataNodes": {
+    "weatherCity": {
+      "scope": "user",
+      "public": false,
+      "isPublic": false
+    },
+    "weatherCityList": {
+      "scope": "user",
+      "public": false,
+      "isPublic": false
+    }
+  },
+  "microAppId": "liteyais-weather",
+  "apiVersion": "1.0.19",
+  "components": {
+    "pages": {
+      "weather-detail-page": {
+        "type": "config",
+        "background": "",
+        "headerTextColor": "#ffffff",
+        "resize": true,
+        "move": true
+      },
+      "weather-config": {
+        "type": "config",
+        "background": "#F0F2F5",
+        "headerTextColor": "#333333",
+        "resize": true,
+        "move": true
+      }
+    },
+    "widgets": {
+      "weather-widget": {
+        "configComponentName": "weather-config",
+        "size": [
+          "1x1",
+          "1x2",
+          "2x1",
+          "2x2",
+          "2x4"
+        ],
+        "background": ""
+      }
+    }
+  }
+}
